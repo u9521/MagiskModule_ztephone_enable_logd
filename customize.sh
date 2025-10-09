@@ -50,6 +50,6 @@ print_sepline
 
 # 设置文件权限
 set_perm_recursive $MODPATH 0 0 0755 0755
-set_perm_recursive $MODPATH/system_ext/bin 0 2000 0751 0755
-set_perm $MODPATH/system_ext/bin/triggerlogtag.sh 0 2000 0755 u:object_r:getlog_exec:s0
+set_perm_recursive $MODPATH/system/system_ext/bin 0 2000 0751 0755
+set_perm $MODPATH/system/system_ext/bin/triggerlogtag.sh 0 2000 0755 u:object_r:getlog_exec:s0
 ui_print "- 安装完成"
