@@ -49,15 +49,6 @@ function logcat_to_file()
 
 直接从[release](https://github.com/u9521/MagiskModule_ztephone_enable_logd/releases)下载本模块，然后在管理器(magisk,Kernelsu,apatch)里面安装，重启后日志就回来了，而且后台不会有logcat占用，也不会写日志到磁盘上
 
-## 开机13小时日志统计结果，共498460条
-
-system_server占比 29.3%
-
-com.android.phone占比 27.6%
-
-android.hardware.gnss-aidl-service-qti 占比约 13% (tag **RequestManager** 在其中占比超过99%)
-
-com.android.systemui 占比约 4.8%
 
 注意，目前有下列日志Tag等级被设置成S，你应该避免使用这些日志Tag
 
@@ -65,3 +56,10 @@ com.android.systemui 占比约 4.8%
 
 - RequestManager
 - APM_AudioPolicyManager
+
+> [!WARNING]
+> 启用了模块后，不推荐手动操作打开系统自带的日志
+
+
+> [!IMPORTANT]
+> 在 `v1.0.2` 版本中，添加了免挂载的支持。在模块根目录添加`skip_mount`文件即可跳过挂载，模块挂载文件的作用是阻止开机后意外操作导致触发`triggerlogtag`服务。

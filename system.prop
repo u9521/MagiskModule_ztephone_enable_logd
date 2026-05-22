@@ -1,9 +1,0 @@
-# 系统自带tag
-log.tag.InputDispatcherFocus=""
-log.tag.stats_log=""
-persist.log.tag.RenderEngine=""
-persist.log.tag.Telecom=""
-
-# android.hardware.gnss-aidl-service-qti
-log.tag.RequestManager=S
-

@@ -8,7 +8,6 @@ print_sepline() {
 SKIPUNZIP=0
 
 rm -f $MODPATH/LICENSE
-# 打印信息到控制台
 
 MODDESC=`grep_prop description $TMPDIR/module.prop`
 MODDVER=`grep_prop version $TMPDIR/module.prop`
@@ -39,16 +38,27 @@ elif [ "$APATCH" = "true" ]; then
 
 else
   ui_print "- Magisk version: $MAGISK_VER ($MAGISK_VER_CODE)"
-    if [ -f $MODPATH/boot-completed.sh ]; then
-      ui_print "[Warning] boot-completed.sh only works for KernelSU and Apatch, this script will be ignored in Magisk."
-    fi
+  if [ -f "$MODPATH/boot-completed.sh" ]; then
+    ui_print "- Injecting boot-completed compatibility for Magisk..."
+    
+    cat << 'EOF' >> "$MODPATH/service.sh"
+# === Magisk boot-completed ===
+(
+  MODDIR=${0%/*}
+  if [ -f "$MODDIR/boot-completed.sh" ]; then
+    resetprop -w sys.boot_completed 0
+    sh "$MODDIR/boot-completed.sh"
+  fi
+) &
+# ==========================================
+EOF
+  fi
 fi
 
 print_sepline
 ui_print "$MODDESC"
 print_sepline
 
-# 设置文件权限
 set_perm_recursive $MODPATH 0 0 0755 0755
 set_perm_recursive $MODPATH/system/system_ext/bin 0 2000 0751 0755
 set_perm $MODPATH/system/system_ext/bin/triggerlogtag.sh 0 2000 0755 u:object_r:getlog_exec:s0
